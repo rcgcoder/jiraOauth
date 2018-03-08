@@ -1,10 +1,9 @@
 var express = require('express'),
-sys = require('sys'),
+sys = requaire('sys'),
 util = require('util'),
 OAuth = require('oauth').OAuth,
 fs = require('fs');
-
-var app = module.exports = express.createServer()
+var app = express();
 
 app.configure('development', function() {
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
