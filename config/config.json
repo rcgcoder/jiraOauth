@@ -1,0 +1,25 @@
+[{
+	plug:{
+		ip:"192.168.100.201"
+		},
+	tablet:{
+			ip:"192.168.100.11"
+		},
+	plan:{
+		"default":{slideshow:[{start:"16:00",stop:"23:00"}]},
+		"1"/*monday*/:{},
+		"2"/*tuesday*/:{},
+		"3"/*wednesday*/:{},
+		"4"/*thursday*/:{},
+		"5"/*friday*/:{},
+		"6"/*saturday*/:{},
+		"0"/*sunday*/:{}
+		},
+	battery:{
+		charge:{min:20,max:80},
+		alwaysMax:false
+		},
+	status:{
+		
+	}
+}]
