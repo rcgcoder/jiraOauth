@@ -1,4 +1,4 @@
 var config = {}; 
-config.consumerKey = "oauth-sample-consumer"; 
-config.consumerPrivateKeyFile = "atlassian-oauth-examples/rsa.pem";
+config.consumerKey = "OauthKey"; 
+config.consumerPrivateKeyFile = "certs/jira_privatekey.pem";
 module.exports = config;
