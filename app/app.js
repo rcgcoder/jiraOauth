@@ -66,8 +66,8 @@ app.get('/sessions/connect', function(request, response){
 			tokensInfo[oauthToken]={
 					token:oauthToken,
 					secret:oauthTokenSecret,
-	//				instance:jiraInstance,
-	//				callbackServer:callbackServer,
+					instance:jiraInstance,
+					callbackServer:callbackServer,
 					consumer:consumer
 					};
 			console.log("token:"+oauthToken);
@@ -104,34 +104,35 @@ app.get('/sessions/callback', function(request, response){
 			secret, 
 			verifier,
 			function(error, oauthAccessToken, oauthAccessTokenSecret, results){			
-			    console.log("Response:".error);
+				console.log(arguments);
+			    console.log("Response:"+error);
 			    if (error) { 
 					console.log("Error");
 			    		console.log(error.data);
 			    		response.send("error getting access token");		
-			    	}
-    			    else {
-				console.log("OK");
-//    			request.session.oauthAccessToken = oauthAccessToken;
-//      			request.session.oauthAccessTokenSecret = oauthAccessTokenSecret;
-				tokensInfo[token].access=oauthAccessToken;
-				tokensInfo[token].accessSecret=oauthAccessTokenSecret;				
-				console.log(JSON.stringify(tokensInfo[token]));
-				objAccess={access:}
-				response.write(JSON.stringify(tokensInfo[token].access));
-				response.end();
-/*      				consumer.get("https://rcgcoder.atlassian.net/rest/api/2/search", 
-						request.session.oauthAccessToken, 
-						request.session.oauthAccessTokenSecret, 
-						"application/json",
-						function(error, data, resp){
-							console.log(data);
-        					data = JSON.parse(data);
-        					response.write("I am looking at: "+data["key"]);
-						response.end();
-						}
-					);
-*/
+			    } else {
+					console.log("OK");
+	//    			request.session.oauthAccessToken = oauthAccessToken;
+	//      			request.session.oauthAccessTokenSecret = oauthAccessTokenSecret;
+					tokensInfo[token].access=oauthAccessToken;
+					tokensInfo[token].accessSecret=oauthAccessTokenSecret;		
+					console.log("Final Access:"+oauthAccessToken);
+					console.log("Final Secret:"+oauthAccessTokenSecret);
+
+					response.write('{"isToken":"true","access":"'+oauthAccessToken+'","secret":"'+oauthAccessTokenSecret+'"}');
+					response.end();
+	/*      				consumer.get("https://rcgcoder.atlassian.net/rest/api/2/search", 
+							request.session.oauthAccessToken, 
+							request.session.oauthAccessTokenSecret, 
+							"application/json",
+							function(error, data, resp){
+								console.log(data);
+								data = JSON.parse(data);
+								response.write("I am looking at: "+data["key"]);
+							response.end();
+							}
+						);
+	*/
 			    }
 			}
 		)
