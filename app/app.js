@@ -3,10 +3,10 @@ sys = require('sys'),
 util = require('util'),
 OAuth = require('./lib/oauth.js').OAuth,
 fs = require('fs'),
-express=require('express');
+express=require('express'),
+htmlToJson=require('html-to-json');
 //stringify=require('json-stringify')
 //;
-
 
 var tokensInfo={};
 var app = module.exports = express.createServer()
@@ -32,8 +32,61 @@ app.dynamicHelpers({
 	}
 });
 */
+
+
 app.get('/', function(request, response){
   	response.send('Hello World');
+});
+app.get('/sessions/getGitHubLastCommitInfo', function(request, response){
+	console.log("Getting GitHub Last Commit Info");
+	var repo=request.query.repository;
+	var user=request.query.user;
+	var url="https://github.com/"+user+"/"+repo+"/commits/master";
+	var promise = htmlToJson.request(url, {
+	  'commits': ['.sha', function ($item) {
+		return $item.attr('href');
+	  }],
+	  'dates': ['relative-time', function ($item) {
+		return $item.attr('datetime');
+	  }]
+	}, function (err,result) {
+		if (err!=null){
+			console.log(err);
+		}
+	});	
+	promise.done(function (result) {
+		//Works as well 
+//		console.log("Promise done:"+result);
+		var arrSha=result.commits[0].split("/");
+		var objResult={sha:arrSha[arrSha.length-1]
+						,commit:{author:{date:result.dates[0]}}};
+		console.log(objResult.sha);
+		response.send(objResult);
+		response.end();
+	});
+	
+	
+	/*
+	var gResp=response;
+	axios.get(url,{
+      headers: { 'Content-Type': 'text' }
+    }).then(response => {
+//		console.log(response.data);
+//		console.log(response.data.url);
+//		console.log(response.data.explanation);
+//		response.send('OK getting github info');
+		parseString(response.data, function (err, result) {
+			console.log(err);
+			console.log(result);
+			gResp.send("OK");
+			gResp.end();
+		});	
+	  }).catch(error => {
+		console.log(error);
+		gResp.send('ERROR getting github info');
+		gResp.end();
+	  });
+	  */
 });
 
 app.get('/sessions/connect', function(request, response){
