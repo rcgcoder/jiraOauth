@@ -21,7 +21,7 @@ app.use(express.cookieParser());
 var configFile = "./config/config.js";
 var config = require(configFile);
 
-var privateKeyData = fs.readFileSync(config["consumerPrivateKeyFile"], "utf8");
+var privateKeyData = ""; //fs.readFileSync(config["consumerPrivateKeyFile"], "utf8");
 console.log("Key:"+privateKeyData);
 console.log("ConsumerKey:"+config["consumerKey"]);
 
