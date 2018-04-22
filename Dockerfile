@@ -6,8 +6,12 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update 
 
 
-RUN mkdir -p /usr/src/app 
-RUN mkdir -p /usr/src/app/src
-RUN mkdir -p /usr/src/app/src/tplink
-RUN mkdir -p /usr/src/app/src/config
+RUN mkdir -p /usr/src
+ADD app /usr/src/app
+ADD config /usr/src/app/config
+
+WORKDIR /usr/src/app
+RUN npm install
+RUN nodejs app.js
+
 
