@@ -92,7 +92,11 @@ app.get('/sessions/getGitHubLastCommitInfo', function(request, response){
 app.get('/sessions/connect', function(request, response){
 	console.log("Connect");
 	var jiraInstance=request.query.jiraInstance;
+	log("jira instance:["+jiraInstance+"]");
 	var callbackServer=request.query.callbackServer;
+	log("callback server:["+callbackServer+"]");
+	log("Config ConsumerKey:["+config["consumerKey"]+"]");
+	log("privateKeyData:["+privateKeyData+"]");
 	var consumer=new OAuth(
 					  jiraInstance+"/plugins/servlet/oauth/request-token",
 					  jiraInstance+"/plugins/servlet/oauth/access-token",
