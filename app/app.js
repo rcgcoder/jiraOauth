@@ -10,7 +10,7 @@ htmlToJson=require('html-to-json');
 
 var tokensInfo={};
 var app = module.exports = express.createServer()
-
+var log=console.log;
 
 app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 app.use(express.logger());
