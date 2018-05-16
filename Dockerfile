@@ -12,6 +12,6 @@ ADD config /usr/src/app/config
 
 WORKDIR /usr/src/app
 RUN npm install
-RUN nodejs app.js
+#RUN nodejs app.js
 
 
