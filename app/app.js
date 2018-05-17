@@ -179,32 +179,15 @@ app.get('/sessions/callback', function(request, response){
 					response.write('{"isToken":"true","access":"'+oauthAccessToken+'","secret":"'+oauthAccessTokenSecret+'"}');
 					
 					var request = require('request');
-/*
- * 			$.ajax({
-			    type: 'POST',
-			    url: sTargetUrl,
-			    headers: arrHeaders,
-			    data:JSON.parse(newData),
-			    dataType:"json"
-			    
-			    //OR
-			    //beforeSend: function(xhr) { 
-			    //  xhr.setRequestHeader("My-First-Header", "first value"); 
-			    //  xhr.setRequestHeader("My-Second-Header", "second value"); 
-			    //}
-			}).done(function(data) { 
-			    alert(data);
-			});
-
- */
 					var options = {
 					  url: 'https://rcgcoder.atlassian.net/rest/api/1.0/render',
 					  method: "POST",
 					  headers: {
 					    'Content-type': 'application/json',
 						'access_token': oauthAccessToken,
-						'Authorization':"Bearer {"+oauthAccessToken+"}"
-
+						'Authorization':"Bearer {"+oauthAccessToken+"}",
+						'oauth_consumer_key':"OauthKey",
+						'oauth_token':oauthAccessToken,
 					  },
 					  body: '*test*'
 					};
