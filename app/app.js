@@ -177,7 +177,57 @@ app.get('/sessions/callback', function(request, response){
 					console.log("Final Secret:"+oauthAccessTokenSecret);
 
 					response.write('{"isToken":"true","access":"'+oauthAccessToken+'","secret":"'+oauthAccessTokenSecret+'"}');
-					response.end();
+					
+					var request = require('request');
+/*
+ * 			$.ajax({
+			    type: 'POST',
+			    url: sTargetUrl,
+			    headers: arrHeaders,
+			    data:JSON.parse(newData),
+			    dataType:"json"
+			    
+			    //OR
+			    //beforeSend: function(xhr) { 
+			    //  xhr.setRequestHeader("My-First-Header", "first value"); 
+			    //  xhr.setRequestHeader("My-Second-Header", "second value"); 
+			    //}
+			}).done(function(data) { 
+			    alert(data);
+			});
+
+ */
+					var options = {
+					  url: 'https://rcgcoder.atlassian.net/rest/api/1.0/render',
+					  method: "POST",
+					  headers: {
+					    'Content-type': 'application/json',
+						'access_token': oauthAccessToken,
+						'Authorization':"Bearer {"+oauthAccessToken+"}"
+
+					  },
+					  body: '*test*'
+					};
+
+					function requestcallback(error, response, body) {
+					  console.log("callback function");
+					  if (!error) {
+//					    var info = (JSON.parse(body));
+					    console.log(body);
+					    console.log("status 200");
+
+					  }
+					  else {
+					    console.log(body);
+					    console.log("ERROR);
+					  }
+					  response.end();
+					}
+
+					request.post(options, requestcallback);
+					
+					
+					
 	/*      				consumer.get("https://rcgcoder.atlassian.net/rest/api/2/search", 
 							request.session.oauthAccessToken, 
 							request.session.oauthAccessTokenSecret, 

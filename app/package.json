@@ -6,7 +6,7 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "2.5.4",
+    "express": "*",
     "express-session": "^1.15.6",
     "fs": "*",
     "json-stringify": "^1.0.0",
