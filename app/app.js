@@ -178,41 +178,7 @@ app.get('/sessions/callback', function(request, response){
 
 					response.write('{"isToken":"true","access":"'+oauthAccessToken+'","secret":"'+oauthAccessTokenSecret+'"}');
 					
-					var request = require('request');
-					var oAuthString= ' OAuth oauth_consumer_key="'+"OauthKey"+'",'+
-										'oauth_token="' +oauthAccessToken+'",'+
-										'oauth_version="'+"1.0"+'"';
-					var options = {
-					  url: 'https://rcgcoder.atlassian.net/rest/api/1.0/render',
-					  method: "POST",
-					  headers: {
-					    'Content-type': 'application/json',
-						'Authorization':oAuthString
-//						'Authorization':"Bearer "+oauthAccessToken+"",
-/*						'access_token': oauthAccessToken
-						'oauth_consumer_key':"OauthKey",
-						'oauth_token':oauthAccessToken,
-*/					  },
-					  body: JSON.stringify({"rendererType":"atlassian-wiki-renderer","unrenderedMarkup":"*test*"})
-					};
-
-					function requestcallback(error, response, body) {
-					  console.log("callback function");
-					  if (!error) {
-//					    var info = (JSON.parse(body));
-					    console.log(body);
-					    console.log("status 200");
-
-					  }
-					  else {
-					    console.log(body);
-					    console.log("ERROR:"+JSON.parse(error));
-					  }
-					  response.end();
-					}
-
-					request.post(options, requestcallback);
-					
+					response.end();
 					
 					
 	/*      				consumer.get("https://rcgcoder.atlassian.net/rest/api/2/search", 
