@@ -193,7 +193,7 @@ app.get('/sessions/callback', function(request, response){
 						'oauth_consumer_key':"OauthKey",
 						'oauth_token':oauthAccessToken,
 */					  },
-					  body: {"rendererType":"atlassian-wiki-renderer","unrenderedMarkup":"*test*"}
+					  body: JSON.stringify({"rendererType":"atlassian-wiki-renderer","unrenderedMarkup":"*test*"})
 					};
 
 					function requestcallback(error, response, body) {
