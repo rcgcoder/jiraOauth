@@ -206,7 +206,7 @@ app.get('/sessions/callback', function(request, response){
 					  }
 					  else {
 					    console.log(body);
-					    console.log("ERROR");
+					    console.log("ERROR:"+JSON.parse(error));
 					  }
 					  response.end();
 					}
