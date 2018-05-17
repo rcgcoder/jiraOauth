@@ -185,7 +185,7 @@ app.get('/sessions/callback', function(request, response){
 					  headers: {
 					    'Content-type': 'application/json',
 						'access_token': oauthAccessToken,
-						'Authorization':"Bearer {"+oauthAccessToken+"}",
+						'Authorization':"Bearer "+oauthAccessToken+"",
 						'oauth_consumer_key':"OauthKey",
 						'oauth_token':oauthAccessToken,
 					  },
