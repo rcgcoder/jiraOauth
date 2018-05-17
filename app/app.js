@@ -176,7 +176,7 @@ app.get('/sessions/callback', function(request, response){
 					console.log("Final Access:"+oauthAccessToken);
 					console.log("Final Secret:"+oauthAccessTokenSecret);
 
-					response.write('{"isToken":"true","access":"'+oauthAccessToken+'","secret":"'+oauthAccessTokenSecret+'"}');
+					response.write('{"isToken":"true","access":"'+oauthAccessToken+'","consumerKey":"'+config["consumerKey"]+'"}');
 					
 					response.end();
 					
