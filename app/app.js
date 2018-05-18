@@ -140,8 +140,9 @@ app.get('/sessions/connect', function(request, response){
 	)
 });
 
-app.get('/proxy',function(request,response){
-	console.log("Proxying");
+app.get('/proxy/:urlProxy/',function(request,response){
+	var urlProxy = request.params.urlProxy;
+	console.log("Proxying:"+urlProxy);
 	var accessToken=request.query.oauth_token;
 	var consumerKey=request.query.oauth_consumerKey;
 	var body=request.body;
