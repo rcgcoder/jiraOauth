@@ -195,6 +195,7 @@ app.get('/sessions/callback', function(request, response){
 */					  },
 					  body: JSON.stringify({"rendererType":"atlassian-wiki-renderer","unrenderedMarkup":"*test*"})
 					};
+					console.log("oAuthString:"+oAuthString);
 
 					function requestcallback(error, response, body) {
 					  console.log("callback function");
