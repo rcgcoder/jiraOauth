@@ -151,17 +151,23 @@ function tracePet(request,response){
 	console.log("-----------------------------");
 	console.log("Data:"+JSON.stringify(body));
 	console.log("-----------------------------");
+/*	if ()
 	console.log("Request:"+JSON.stringify(request));  
 	console.log("-----------------------------");
 	console.log("Response:"+JSON.stringify(response));
 	console.log("-----------------------------");
+	*/
 }
 
 app.get('/proxy/:urlProxy/endproxy*',function(request,response){
+	log("GET proxy");
 	tracePet(request,response);
+	response.end();
 });
 app.post('/proxy/:urlProxy/endproxy*',function(request,response){
+	log("POST proxy");
 	tracePet(request,response);
+	response.end();
 });
 
 app.get('/sessions/callback', function(request, response){
@@ -201,7 +207,7 @@ app.get('/sessions/callback', function(request, response){
 					console.log("Final Secret:"+oauthAccessTokenSecret);
 
 					response.write('{"isToken":"true","access":"'+oauthAccessToken+'","secret":"'+oauthAccessTokenSecret+'"}');
-					
+		/*			
 					var request = require('request');
 					var oAuthString= ' OAuth oauth_consumer_key="'+"OauthKey"+'",'+
 										'oauth_token="' +oauthAccessToken+'",'+
@@ -213,10 +219,7 @@ app.get('/sessions/callback', function(request, response){
 					    'Content-type': 'application/json',
 						'Authorization':oAuthString
 //						'Authorization':"Bearer "+oauthAccessToken+"",
-/*						'access_token': oauthAccessToken
-						'oauth_consumer_key':"OauthKey",
-						'oauth_token':oauthAccessToken,
-*/					  },
+					  },
 					  body: JSON.stringify({"rendererType":"atlassian-wiki-renderer","unrenderedMarkup":"*test*"})
 					};
 					console.log("oAuthString:"+oAuthString);
@@ -254,14 +257,11 @@ app.get('/sessions/callback', function(request, response){
 							    'Content-type': 'application/json',
 								'Authorization':oAuthString
 //								'Authorization':"Bearer "+oauthAccessToken+"",
-		/*						'access_token': oauthAccessToken
-								'oauth_consumer_key':"OauthKey",
-								'oauth_token':oauthAccessToken,
-		*/					  },
+					  		  },
 							  body: JSON.stringify({"rendererType":"atlassian-wiki-renderer","unrenderedMarkup":"*test*"})
 							};
 					request.post(options, requestcallback);
-					
+*/					
 					response.end();
 					
 					
