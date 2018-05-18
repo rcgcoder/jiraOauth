@@ -156,9 +156,9 @@ function tracePet(request,response){
 	console.log("-----------------------------");
 	console.log("Data:"+stringify(body));
 	console.log("-----------------------------");
-	console.log("Request:"+stringify(request));  
+/*	console.log("Request:"+stringify(request));  
 	console.log("-----------------------------");
-/*	console.log("Response:"+JSON.stringify(response));
+*//*	console.log("Response:"+JSON.stringify(response));
 	console.log("-----------------------------");
 	*/
 }
