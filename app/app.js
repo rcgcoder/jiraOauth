@@ -140,9 +140,10 @@ app.get('/sessions/connect', function(request, response){
 	)
 });
 
-app.get('/proxy/:urlProxy/',function(request,response){
+app.get('/proxy/:urlProxy/endproxy/:urlRest',function(request,response){
 	var urlProxy = request.params.urlProxy;
-	console.log("Proxying:"+urlProxy);
+	var urlRest = request.params.urlRest;
+	console.log("Proxying:"+urlProxy+" - "+urlRest);
 	var accessToken=request.query.oauth_token;
 	var consumerKey=request.query.oauth_consumerKey;
 	var body=request.body;
