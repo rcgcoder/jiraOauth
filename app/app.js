@@ -226,6 +226,7 @@ app.get('/sessions/callback', function(request, response){
 							};
 					request.post(options, requestcallback);
 					
+					response.end();
 					
 					
 	/*      				consumer.get("https://rcgcoder.atlassian.net/rest/api/2/search", 
