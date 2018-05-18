@@ -140,6 +140,14 @@ app.get('/sessions/connect', function(request, response){
 	)
 });
 
+app.get('/proxy',function(request,response){
+	console.log("Proxying");
+	var accessToken=request.query.oauth_token;
+	var consumerKey=request.query.oauth_consumerKey;
+	var body=request.body;
+	console.log("Data:"+JSON.stringify(body));
+});
+
 app.get('/sessions/callback', function(request, response){
 	console.log("Callbacking:" ); //+ JSON.stringify(request));
 	var token=request.query.oauth_token;
