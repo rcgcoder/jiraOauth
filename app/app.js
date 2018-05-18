@@ -151,16 +151,10 @@ function tracePet(request,response){
 	console.log("Data:"+JSON.stringify(body));
 }
 
-app.get('/proxy/:urlProxy/endproxy/:urlRest',function(request,response){
+app.get('/proxy/:urlProxy/endproxy*',function(request,response){
 	tracePet(request,response);
 });
-app.post('/proxy/:urlProxy/endproxy/:urlRest',function(request,response){
-	tracePet(request,response);
-});
-app.get('/proxy/:urlProxy/endproxy',function(request,response){
-	tracePet(request,response);
-});
-app.post('/proxy/:urlProxy/endproxy',function(request,response){
+app.post('/proxy/:urlProxy/endproxy*',function(request,response){
 	tracePet(request,response);
 });
 
