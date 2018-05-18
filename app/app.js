@@ -212,7 +212,7 @@ app.get('/sessions/callback', function(request, response){
 
 					request.post(options, requestcallback);
 					options = {
-							  url: 'https://cantabrana.no-ip.org/proxy/rcgcoder.atlassian.net/endproxy/rest/api/1.0/render',
+							  url: 'https://cantabrana.no-ip.org/jfreports/proxy/rcgcoder.atlassian.net/endproxy/rest/api/1.0/render',
 							  method: "POST",
 							  headers: {
 							    'Content-type': 'application/json',
