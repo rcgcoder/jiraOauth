@@ -3,7 +3,7 @@ sys = require('sys'),
 util = require('util'),
 OAuth = require('./lib/oauth.js').OAuth,
 fs = require('fs'),
-express=require('express'),
+//express=require('express'),
 htmlToJson=require('html-to-json');
 //stringify=require('json-stringify')
 //;
@@ -199,6 +199,17 @@ app.get('/sessions/callback', function(request, response){
 
 					function requestcallback(error, response, body) {
 					  console.log("callback function");
+					  console.log("-----------------------");
+					  console.log("-----------------------");
+					  console.log("-----------------------");
+					  console.log(JSON.stringify(response));
+					  console.log("-----------------------");
+					  console.log("-----------------------");
+					  console.log(JSON.stringify(body));
+					  console.log("-----------------------");
+					  console.log("-----------------------");
+					  console.log("-----------------------");
+					  
 					  if (!error) {
 //					    var info = (JSON.parse(body));
 					    console.log(body);
