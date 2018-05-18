@@ -148,7 +148,13 @@ function tracePet(request,response){
 	var accessToken=request.query.oauth_token;
 	var consumerKey=request.query.oauth_consumerKey;
 	var body=request.body;
+	console.log("-----------------------------");
 	console.log("Data:"+JSON.stringify(body));
+	console.log("-----------------------------");
+	console.log("Request:"+JSON.stringify(request));
+	console.log("-----------------------------");
+	console.log("Response:"+JSON.stringify(response));
+	console.log("-----------------------------");
 }
 
 app.get('/proxy/:urlProxy/endproxy*',function(request,response){
