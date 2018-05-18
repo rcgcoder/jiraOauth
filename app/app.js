@@ -5,7 +5,7 @@ OAuth = require('./lib/oauth.js').OAuth,
 fs = require('fs'),
 //express=require('express'),
 htmlToJson=require('html-to-json');
-//stringify=require('json-stringify')
+stringify=require('json-stringify')
 //;
 
 var tokensInfo={};
@@ -149,10 +149,10 @@ function tracePet(request,response){
 	var consumerKey=request.query.oauth_consumerKey;
 	var body=request.body;
 	console.log("-----------------------------");
-	console.log("Data:"+JSON.stringify(body));
+	console.log("Data:"+stringify(body));
 	console.log("-----------------------------");
-//	console.log("Request:"+JSON.stringify(request));  
-//	console.log("-----------------------------");
+	console.log("Request:"+stringify(request));  
+	console.log("-----------------------------");
 /*	console.log("Response:"+JSON.stringify(response));
 	console.log("-----------------------------");
 	*/
