@@ -8,6 +8,7 @@
   "dependencies": {
     "express": "*",
     "express-session": "^1.15.6",
+    "body-parse":"*",
     "fs": "*",
     "json-stringify": "^1.0.0",
     "mime-types": "^2.1.18",

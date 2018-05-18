@@ -5,12 +5,17 @@ OAuth = require('./lib/oauth.js').OAuth,
 fs = require('fs'),
 //express=require('express'),
 htmlToJson=require('html-to-json');
-stringify=require('json-stringify')
+stringify=require('json-stringify');
 //;
 
 var tokensInfo={};
 var app = module.exports = express.createServer()
 var log=console.log;
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 app.use(express.logger());
