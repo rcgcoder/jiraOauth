@@ -126,7 +126,7 @@ app.get('/sessions/connect', function(request, response){
 					instance:jiraInstance,
 					callbackServer:callbackServer,
 					consumer:consumer
-					};
+		 			};
 			console.log("token:"+oauthToken);
 			console.log("secret:"+oauthTokenSecret);
 			var sUrl=jiraInstance+"/plugins/servlet/oauth/authorize?oauth_token="+oauthToken;
@@ -140,7 +140,7 @@ app.get('/sessions/connect', function(request, response){
 	)
 });
 
-app.get('/proxy/:urlProxy/endproxy/:urlRest',function(request,response){
+function tracePet(request,response){
 	var urlProxy = request.params.urlProxy;
 	console.log("Proxying:"+urlProxy);
 	var urlRest = request.params.urlRest;
@@ -149,6 +149,19 @@ app.get('/proxy/:urlProxy/endproxy/:urlRest',function(request,response){
 	var consumerKey=request.query.oauth_consumerKey;
 	var body=request.body;
 	console.log("Data:"+JSON.stringify(body));
+}
+
+app.get('/proxy/:urlProxy/endproxy/:urlRest',function(request,response){
+	tracePet(request,response);
+});
+app.post('/proxy/:urlProxy/endproxy/:urlRest',function(request,response){
+	tracePet(request,response);
+});
+app.get('/proxy/:urlProxy/endproxy',function(request,response){
+	tracePet(request,response);
+});
+app.post('/proxy/:urlProxy/endproxy',function(request,response){
+	tracePet(request,response);
 });
 
 app.get('/sessions/callback', function(request, response){
