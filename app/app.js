@@ -184,6 +184,19 @@ function tracePet(request,response){
 	var fncRequestcallback=function(error, cbResponse, body){
 	    console.log("---- response headers ----");
 	    console.log(cbResponse.headers);
+		var arrProperties=Object.getOwnPropertyNames(cbResponse.headers);
+		for (var i=0;i<arrProperties.length;i++){
+			var vPropName=arrProperties[i];
+			//if (vPropName!=="constructor"){
+				var vPropValue=srcObj[vPropName];
+				//if (isMethod(vPropValue)){
+					if (isUndefined(result[vPropName])){
+					    respose.set(vPropName, [vPropValue]);
+					}
+				//}
+			//}
+		}
+
 		if (!error) {
 //			    var info = (JSON.parse(body));
 		        console.log("---- response body----");
