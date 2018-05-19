@@ -184,11 +184,12 @@ function tracePet(request,response){
 	var fncRequestcallback=function(error, cbResponse, body){
 	    console.log("---- response headers ----");
 	    console.log(cbResponse.headers);
-		var arrProperties=Object.getOwnPropertyNames(cbResponse.headers);
+	    var auxHeaders=cbResponse.headers
+		var arrProperties=Object.getOwnPropertyNames(auxHeaders);
 		for (var i=0;i<arrProperties.length;i++){
 			var vPropName=arrProperties[i];
 			//if (vPropName!=="constructor"){
-				var vPropValue=srcObj[vPropName];
+				var vPropValue=auxHeaders[vPropName];
 				//if (isMethod(vPropValue)){
 					if (isUndefined(result[vPropName])){
 					    respose.set(vPropName, [vPropValue]);
