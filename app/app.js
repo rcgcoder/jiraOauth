@@ -167,13 +167,13 @@ function tracePet(request,response){
 	console.log("Data:"+stringify(body));
 	console.log("-----------------------------");
 	
-	var request = require('request');
+	var proxyrequest = require('request');
 	var options = {
 	  url: urlProxy,
 	  method: "POST",
 	  headers: {
 	    'Content-type': request.headers["content-type"],
-		'Authorization':request.headers.authorization
+		'Authorization':request.headers["authorization"]
 //		'Authorization':"Bearer "+oauthAccessToken+"",
 	  },
 	  body: stringify(body)
@@ -191,7 +191,7 @@ function tracePet(request,response){
 		response.write(body);
 		response.end();
 	};
-	request.post(options, fncRequestcallback);
+	proxyrequest.post(options, fncRequestcallback);
 	
 	
 /*	console.log("Request:"+stringify(request));  
