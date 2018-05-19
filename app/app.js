@@ -188,14 +188,14 @@ function tracePet(request,response){
 		var arrProperties=Object.getOwnPropertyNames(auxHeaders);
 		for (var i=0;i<arrProperties.length;i++){
 			var vPropName=arrProperties[i];
-			//if (vPropName!=="constructor"){
+			if (vPropName!="set-cookie"){
 				var vPropValue=auxHeaders[vPropName];
 				//if (isMethod(vPropValue)){
 					if (typeof vPropValue!=="undefined"){
 					   response.setHeader(vPropName, vPropValue);
 					}
 				//}
-			//}
+			}
 		}
 
 		if (!error) {
