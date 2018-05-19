@@ -185,6 +185,7 @@ function tracePet(request,response){
 			    console.log("status 200");
 		  }
 		  else {
+			console.log("Error:"+error);
 		    console.log(body);
 		    console.log("ERROR:"+JSON.parse(error));
 		  }
