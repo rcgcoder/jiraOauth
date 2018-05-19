@@ -168,6 +168,7 @@ function tracePet(request,response){
 	console.log("-----------------------------");
 	var arrUrl=request.originalUrl.split("endproxy");
 	var newUrl="https://"+urlProxy+arrUrl[1];
+	
 	console.log("New url:"+newUrl);
 	var proxyrequest = require('request');
 	var options = {
