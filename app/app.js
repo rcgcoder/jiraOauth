@@ -151,7 +151,7 @@ function tracePet(request,response){
 	var urlRest = request.params.urlRest;
 	console.log("Proxying:"+urlProxy+" - "+urlRest);
 	var accessToken=request.query.oauth_token;
-	var consumerKey=request.query.oauth_consumerKey;
+	var consumerKey=request.query.oauth_consumerKey; 
 	var body=request.body;
 	console.log("URL:"+request.originalUrl);
 	console.log("Authorization:"+request.get("Authorization"));
