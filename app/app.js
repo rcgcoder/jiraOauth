@@ -153,6 +153,9 @@ function tracePet(request,response){
 	var accessToken=request.query.oauth_token;
 	var consumerKey=request.query.oauth_consumerKey;
 	var body=request.body;
+	console.log("URL:"+request.originalUrl);
+	console.log("Authorization:"+request.get("Authorization"));
+	console.log("Content-Type:"+request.get("Content-Type"));
 	console.log(body);
 	console.log("-----------------------------");
 	console.log("Data:"+stringify(body));
