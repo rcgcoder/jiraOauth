@@ -182,10 +182,12 @@ function tracePet(request,response){
 	  body: stringify(body)
 	};
 	var fncRequestcallback=function(error, cbResponse, body){
+	    console.log("---- response headers ----");
+	    console.log(stringify(cbResponse.getHeaders()));
 		if (!error) {
 //			    var info = (JSON.parse(body));
+		        console.log("---- response body----");
 			    console.log(body);
-			    console.log("status 200");
 		  }
 		  else {
 			console.log("Error:"+error);
