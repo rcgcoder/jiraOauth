@@ -157,6 +157,8 @@ function tracePet(request,response){
 	console.log("URL:"+request.originalUrl);
 	console.log("---------------------");
 	console.log(JSON.stringify(request.headers));
+	console.log(JSON.stringify(request.headers["content-type"]));
+	console.log(JSON.stringify(request.headers["authorization"]));
 	console.log("---------------------");
 	console.log("Authorization:"+request.get("authorization"));
 	console.log("Content-Type:"+request.get("Content-Type"));
@@ -170,7 +172,7 @@ function tracePet(request,response){
 	  url: urlProxy,
 	  method: "POST",
 	  headers: {
-	    'Content-type': request.headers.content-type,
+	    'Content-type': request.headers["content-type"],
 		'Authorization':request.headers.authorization
 //		'Authorization':"Bearer "+oauthAccessToken+"",
 	  },
