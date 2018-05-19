@@ -192,7 +192,7 @@ function tracePet(request,response){
 				var vPropValue=auxHeaders[vPropName];
 				//if (isMethod(vPropValue)){
 					if (typeof vPropValue!=="undefined"){
-					    respose.set(vPropName, [vPropValue]);
+					    response.set(vPropName, [vPropValue]);
 					}
 				//}
 			//}
