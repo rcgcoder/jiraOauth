@@ -158,12 +158,43 @@ function tracePet(request,response){
 	console.log("---------------------");
 	console.log(JSON.stringify(request.headers));
 	console.log("---------------------");
-	console.log("Authorization:"+request.get("Authorization"));
+	console.log("Authorization:"+request.get("authorization"));
 	console.log("Content-Type:"+request.get("Content-Type"));
 	console.log(body);
 	console.log("-----------------------------");
 	console.log("Data:"+stringify(body));
 	console.log("-----------------------------");
+	
+	var request = require('request');
+	var oAuthString= ' OAuth oauth_consumer_key="'+"OauthKey"+'",'+
+						'oauth_token="' +oauthAccessToken+'",'+
+						'oauth_version="'+"1.0"+'"';
+	var options = {
+	  url: urlProxy,
+	  method: "POST",
+	  headers: {
+	    'Content-type': request.headers.content-type,
+		'Authorization':request.headers.authorization
+//		'Authorization':"Bearer "+oauthAccessToken+"",
+	  },
+	  body: stringify(body)
+	};
+	var fncRequestcallback=function(error, cbResponse, body){
+		if (!error) {
+//			    var info = (JSON.parse(body));
+			    console.log(body);
+			    console.log("status 200");
+		  }
+		  else {
+		    console.log(body);
+		    console.log("ERROR:"+JSON.parse(error));
+		  }
+		response.write(body);
+		response.end();
+	};
+	request.post(options, fncRequestcallback);
+	
+	
 /*	console.log("Request:"+stringify(request));  
 	console.log("-----------------------------");
 *//*	console.log("Response:"+JSON.stringify(response));
@@ -179,7 +210,6 @@ app.get('/proxy/:urlProxy/endproxy*',function(request,response){
 app.post('/proxy/:urlProxy/endproxy*',function(request,response){
 	log("POST proxy");
 	tracePet(request,response);
-	response.end();
 });
 
 app.get('/sessions/callback', function(request, response){
