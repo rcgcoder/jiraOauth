@@ -166,9 +166,6 @@ function tracePet(request,response){
 	console.log("-----------------------------");
 	
 	var request = require('request');
-	var oAuthString= ' OAuth oauth_consumer_key="'+"OauthKey"+'",'+
-						'oauth_token="' +oauthAccessToken+'",'+
-						'oauth_version="'+"1.0"+'"';
 	var options = {
 	  url: urlProxy,
 	  method: "POST",
