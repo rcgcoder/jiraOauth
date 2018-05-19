@@ -191,7 +191,7 @@ function tracePet(request,response){
 			//if (vPropName!=="constructor"){
 				var vPropValue=auxHeaders[vPropName];
 				//if (isMethod(vPropValue)){
-					if (isUndefined(result[vPropName])){
+					if (typeof vPropValue!=="undefined"){
 					    respose.set(vPropName, [vPropValue]);
 					}
 				//}
