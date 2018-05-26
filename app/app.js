@@ -144,7 +144,7 @@ app.get('/sessions/connect', function(request, response){
 		}
 	)
 });
-
+var callHttpMethod="GET";
 function tracePet(request,response){
 	var urlProxy = request.params.urlProxy;
 	console.log("Proxying:"+urlProxy);
@@ -173,7 +173,7 @@ function tracePet(request,response){
 	var proxyrequest = require('request');
 	var options = {
 	  url: newUrl,
-	  method: "POST",
+	  method: callHttpMethod,
 	  headers: {
 	    'Content-type': request.headers["content-type"],
 		'Authorization':request.headers["authorization"]
@@ -211,8 +211,13 @@ function tracePet(request,response){
 		response.write(body);
 		response.end();
 	};
-	proxyrequest.post(options, fncRequestcallback);
-	
+	if (callHttpMethod=="POST"){
+		proxyrequest.post(options, fncRequestcallback);
+	} else if (callHttpMethod=="PUT"){
+		proxyrequest.put(options, fncRequestcallback);
+	} else { //if (callHttpMethod=="GET"){
+		proxyrequest.get(options, fncRequestcallback);
+	}
 	
 /*	console.log("Request:"+stringify(request));  
 	console.log("-----------------------------");
@@ -223,11 +228,18 @@ function tracePet(request,response){
 
 app.get('/proxy/:urlProxy/endproxy*',function(request,response){
 	log("GET proxy");
+	callHttpMethod="GET";
 	tracePet(request,response);
 	response.end();
 });
 app.post('/proxy/:urlProxy/endproxy*',function(request,response){
 	log("POST proxy");
+	callHttpMethod="POST";
+	tracePet(request,response);
+});
+app.put('/proxy/:urlProxy/endproxy*',function(request,response){
+	log("PUT proxy");
+	callHttpMethod="PUT";
 	tracePet(request,response);
 });
 
