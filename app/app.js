@@ -160,8 +160,8 @@ function tracePet(request,response){
 	console.log("Header:Content-Type:"+JSON.stringify(request.headers["content-type"]));
 	console.log("Header:authorization:"+JSON.stringify(request.headers["authorization"]));
 	console.log("---------------------");
-	console.log("Authorization:"+request.get("authorization"));
-	console.log("Content-Type:"+request.get("Content-Type"));
+	console.log("Request:Authorization:"+request.get("authorization"));
+	console.log("Request:Content-Type:"+request.get("Content-Type"));
 	console.log(body);
 	console.log("-----------------------------");
 	console.log("Data:"+stringify(body));
@@ -181,6 +181,9 @@ function tracePet(request,response){
 	  },
 	  body: stringify(body)
 	};
+	console.log("-----------------------------");
+	console.log("Call options:"+stringify(options));
+	console.log("-----------------------------");
 	var fncRequestcallback=function(error, cbResponse, body){
 	    console.log("---- response headers ----");
 	    console.log(cbResponse.headers);
