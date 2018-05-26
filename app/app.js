@@ -156,9 +156,9 @@ function tracePet(request,response){
 	console.log("--------------------");
 	console.log("URL:"+request.originalUrl);
 	console.log("---------------------");
-	console.log(JSON.stringify(request.headers));
-	console.log(JSON.stringify(request.headers["content-type"]));
-	console.log(JSON.stringify(request.headers["authorization"]));
+	console.log("All Headers:"+JSON.stringify(request.headers));
+	console.log("Header:Content-Type:"+JSON.stringify(request.headers["content-type"]));
+	console.log("Header:authorization:"+JSON.stringify(request.headers["authorization"]));
 	console.log("---------------------");
 	console.log("Authorization:"+request.get("authorization"));
 	console.log("Content-Type:"+request.get("Content-Type"));
