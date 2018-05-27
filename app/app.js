@@ -233,7 +233,6 @@ app.get('/proxy/:urlProxy/endproxy*',function(request,response){
 	log("GET proxy");
 	callHttpMethod="GET";
 	tracePet(request,response);
-	response.end();
 });
 app.post('/proxy/:urlProxy/endproxy*',function(request,response){
 	log("POST proxy");
