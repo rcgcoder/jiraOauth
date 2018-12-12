@@ -356,6 +356,33 @@ app.get('/sessions/callback', function(request, response){
 			}
 		)
 	});
+
+    app.get('/atlassian/call', function(request, response){
+        console.log("Callbacking:" ); //+ JSON.stringify(request));
+        var token=request.query.oauth_token;
+        console.log("token:"+token);
+        console.log("Tokens:"+JSON.stringify(tokensInfo));
+        var tInfo=tokensInfo[token];
+        console.log("Token info:"+JSON.stringify(tInfo));
+        var consumer=tInfo.consumer;
+        console.log("   oauth_token:" + token);
+        console.log("   request token:" + tokensInfo[token].token);
+        console.log("   secret:" + tokensInfo[token].secret);
+        consumer.get(
+                "https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png",
+                //"https://paega2.atlassian.net/rest/api/2/search",
+                tInfo.access,//request.session.oauthAccessToken,
+                tInfo.secret,//request.session.oauthAccessTokenSecret,
+                undefined,
+//              "application/json",
+                function(error, data, resp){
+                        console.log(data);
+                        data = JSON.parse(data);
+                        response.write("I am looking at: "+data["key"]);
+                        response.end();
+                }
+        );
+    });
 					
 
 app.listen(parseInt(process.env.PORT || 8080));
