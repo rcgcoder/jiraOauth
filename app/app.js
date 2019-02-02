@@ -395,8 +395,13 @@ app.get('/atlassian/call', function(request, response){
 			//console.log("First byte:"+data.charCodeAt(0));
 			//data = JSON.parse(data);
 			//response.write("I am looking at: "+data["key"]);
-			response.write(data);
-			response.end();
+			if (!bIsBin){
+				response.write(data);
+				response.end();
+			} else {
+			    res.write(data,'binary');
+			    res.end(null, 'binary');
+			}
 		}
 	);
     });
