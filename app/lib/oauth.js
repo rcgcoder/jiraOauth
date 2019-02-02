@@ -398,7 +398,14 @@ exports.OAuth.prototype.getCallHeaders = function( oauth_token, oauth_token_secr
               '-H \'User-Agent: '+headers["User-Agent"]+'\' '+ 
               '-H \'Content-Type: '+headers["Content-Type"]+'\' ' +
               url;
-  return {headers:headers,method:method, url:url,curlCommand:sCurlCommand};
+  return {headers:headers
+	  		,method:method
+	  		,url:url
+	  		,urlPath:parsedUrl.pathname
+	  		,urlQuery:parsedUrl.query
+	  		,urlProtocol:parsedUrl.protocol
+	  		,path:path
+	  		,curlCommand:sCurlCommand};
 }
 
 exports.OAuth.prototype.getOAuthAccessToken= function(oauth_token, oauth_token_secret, oauth_verifier,  callback) {
