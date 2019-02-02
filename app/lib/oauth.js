@@ -390,6 +390,7 @@ exports.OAuth.prototype.getCallHeaders = function( oauth_token, oauth_token_secr
   if( !parsedUrl.pathname  || parsedUrl.pathname == "" ) parsedUrl.pathname ="/";
   if( parsedUrl.query ) path= parsedUrl.pathname + "?"+ parsedUrl.query ;
   else path= parsedUrl.pathname;
+  var processedUrl=parsedUrl.protocol+"/"+parsedUrl.host+parsedUrl.pathname+"?"+parsedUrl.query;
   var sCurlCommand='curl -v '+
 	      '-H \'Authorization: '+headers.Authorization +'\' '+
               '-H \'Host: '+headers.Host+ '\' ' +
@@ -397,10 +398,10 @@ exports.OAuth.prototype.getCallHeaders = function( oauth_token, oauth_token_secr
               '-H \'Connection: '+headers.Connection+'\' ' +
               '-H \'User-Agent: '+headers["User-Agent"]+'\' '+ 
               '-H \'Content-Type: '+headers["Content-Type"]+'\' ' +
-              parsedUrl.protocol+"/"+parsedUrl.host+parsedUrl.pathname+"?"+parsedUrl.query;
+              processedUrl;
   return {headers:headers
 	  		,method:method
-	  		,url:url
+	  		,url:processedUrl
 	  		,urlPath:parsedUrl.pathname
 	  		,urlQuery:parsedUrl.query
 	  		,urlProtocol:parsedUrl.protocol
