@@ -287,6 +287,8 @@ app.get('/sessions/callback', function(request, response){
 					console.log("Final Access:"+oauthAccessToken);
 					console.log("Final Secret:"+oauthAccessTokenSecret);
 					tokensInfo[oauthAccessToken]=tInfo;
+					console.log("Final Tokens List:"+JSON.stringify(tokensInfo));
+
 					response.write('{"isToken":"true","access":"'+oauthAccessToken+'","secret":"'+oauthAccessTokenSecret+'"}');
 		/*			
 					var request = require('request');
