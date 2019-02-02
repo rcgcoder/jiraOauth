@@ -365,11 +365,18 @@ app.get('/atlassian/call', function(request, response){
 	console.log(" 	oauth_token:" + token);
 	console.log("	request token:" + tokensInfo[token].token);
 	console.log("	secret:" + tokensInfo[token].secret);
-    var url="https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png";
+//    var url="https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png";
+//    var method="GET";
 //        var url="https://api.media.atlassian.com/file/6a3096f3-426d-4fdf-8565-be02722c97ba/binary?token=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYjJhMzNlMi0wODViLTRjMGUtOWI3ZS1jNzU4Yjg3NGU0ZDQiLCJhY2Nlc3MiOnsidXJuOmZpbGVzdG9yZTpmaWxlOjZhMzA5NmYzLTQyNmQtNGZkZi04NTY1LWJlMDI3MjJjOTdiYSI6WyJyZWFkIl19LCJleHAiOjE1NDkwNTI3MjQsIm5iZiI6MTU0OTA1MjA2NH0.-77KqtNoEemUmWOiziYfRkjKSQs1M7HmiO9-mzghJhU&client=cb2a33e2-085b-4c0e-9b7e-c758b874e4d4&name=screenshot-1.png";
-
-    var content_type="application/octet-stream";
-	var newHeaders=consumer.getCallHeaders( tInfo.access, tInfo.secret, "GET", url, null, "", content_type, function() {console.log("callback");} );
+//    var content_type="application/octet-stream";
+    
+    var url=request.query.callUrl;
+    var method=request.query.callMethod;
+    var content_type=request.query.CallContentType;    
+    console.log("Call Url:"+url);
+    console.log("Call Method:"+method);
+    console.log("Call Content Type:"+content_type);
+	var newHeaders=consumer.getCallHeaders( tInfo.access, tInfo.secret, method, url, null, "", content_type, function() {console.log("callback");} );
 	response.write(JSON.stringify(newHeaders));
 	response.end();
 
