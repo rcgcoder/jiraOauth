@@ -376,20 +376,20 @@ app.get('/atlassian/call', function(request, response){
     console.log("Call Url:"+url);
     console.log("Call Method:"+method);
     console.log("Call Content Type:"+content_type);
-	var newHeaders=consumer.getCallHeaders( tInfo.access, tInfo.secret, method, url, null, "", content_type, function() {console.log("callback");} );
-	response.write(JSON.stringify(newHeaders));
-	response.end();
+//	var newHeaders=consumer.getCallHeaders( tInfo.access, tInfo.secret, method, url, null, "", content_type, function() {console.log("callback");} );
+//	response.write(JSON.stringify(newHeaders));
+//	response.end();
 
-/*	consumer.get(
-		"https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png",
+	consumer.get(
+		url,
 		//"https://paega2.atlassian.net/rest/api/2/search", 
 		tInfo.access,//request.session.oauthAccessToken, 
 		tInfo.secret,//request.session.oauthAccessTokenSecret, 
 //		undefined,
-		"application/octet-stream",
+		content_type,
 		function(error, data, resp){
-			//console.log(data);
-			console.log("First byte:"+data.charCodeAt(0));
+			console.log(data);
+			//console.log("First byte:"+data.charCodeAt(0));
 			//data = JSON.parse(data);
 			//response.write("I am looking at: "+data["key"]);
 			response.write(data);
