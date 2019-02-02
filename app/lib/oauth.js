@@ -405,7 +405,7 @@ exports.OAuth.prototype.getCallHeaders = function( oauth_token, oauth_token_secr
 	  		,urlPath:parsedUrl.pathname
 	  		,urlQuery:parsedUrl.query
 	  		,urlProtocol:parsedUrl.protocol
-	  		,urlHost=parsedUrl.host
+	  		,urlHost:parsedUrl.host
 	  		,path:path
 	  		,curlCommand:sCurlCommand};
 }
