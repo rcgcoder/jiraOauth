@@ -389,7 +389,7 @@ app.get('/atlassian/call', function(request, response){
 //		undefined,
 		content_type,
 		function(error, data, resp){
-			var bIsBin=isBinary(null, data);
+			var bIsBin=istextorbinary.isBinary(null, data);
 			console.log("Is binary:"+bIsBin);
 			console.log(data);
 			//console.log("First byte:"+data.charCodeAt(0));
