@@ -397,13 +397,14 @@ exports.OAuth.prototype.getCallHeaders = function( oauth_token, oauth_token_secr
               '-H \'Connection: '+headers.Connection+'\' ' +
               '-H \'User-Agent: '+headers["User-Agent"]+'\' '+ 
               '-H \'Content-Type: '+headers["Content-Type"]+'\' ' +
-              url;
+              parsedUrl.protocol+"/"+parsedUrl.host+parsedUrl.pathname+"?"+parsedUrl.query;
   return {headers:headers
 	  		,method:method
 	  		,url:url
 	  		,urlPath:parsedUrl.pathname
 	  		,urlQuery:parsedUrl.query
 	  		,urlProtocol:parsedUrl.protocol
+	  		,urlHost=parsedUrl.host
 	  		,path:path
 	  		,curlCommand:sCurlCommand};
 }
