@@ -392,12 +392,12 @@ exports.OAuth.prototype.getCallHeaders = function( oauth_token, oauth_token_secr
   else path= parsedUrl.pathname;
   var processedUrl=parsedUrl.protocol+"//"+parsedUrl.host+parsedUrl.pathname+"?"+parsedUrl.query;
   var sCurlCommand='curl -v '+
-	      '-H "Authorization: '+headers.Authorization +'" '+
-              '-H "Host: '+headers.Host+ '" ' +
-              '-H "Accept: '+headers.Accept+'" ' +  
-              '-H "Connection: '+headers.Connection+'" ' +
-              '-H "User-Agent: '+headers["User-Agent"]+'" '+ 
-              '-H "Content-Type: '+headers["Content-Type"]+'" ' +
+	      '-H \'Authorization: '+headers.Authorization +'\' '+
+              '-H \'Host: '+headers.Host+ '\' ' +
+              '-H \'Accept: '+headers.Accept+'\' ' +  
+              '-H \'Connection: '+headers.Connection+'\' ' +
+              '-H \'User-Agent: '+headers["User-Agent"]+'\' '+ 
+              '-H \'Content-Type: '+headers["Content-Type"]+'\' ' +
               processedUrl;
   return {headers:headers
 	  		,method:method
