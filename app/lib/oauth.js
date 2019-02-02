@@ -397,7 +397,7 @@ exports.OAuth.prototype.getCallHeaders = function( oauth_token, oauth_token_secr
               '-H \'Connection: '+headers.Connection+'\' ' +
               '-H \'User-Agent: '+headers["User-Agent"]+'\' '+ 
               '-H \'Content-Type: '+headers["Content-Type"]+'\' ' +
-              ' https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png';
+              url;
   return {headers:headers,method:method, url:url,curlCommand:sCurlCommand};
 }
 
