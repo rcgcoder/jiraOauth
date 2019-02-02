@@ -13,6 +13,7 @@
     "json-stringify": "^1.0.0",
     "mime-types": "^2.1.18",
     "util": "*",
-    "html-to-json":"*"
+    "html-to-json":"*",
+    "istextorbinary":"*"
   }
 }

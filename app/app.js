@@ -7,6 +7,7 @@ crypto=require('crypto'),
 //express=require('express'),
 htmlToJson=require('html-to-json');
 stringify=require('json-stringify');
+istextorbinary=require('istextorbinary');
 //;
 
 var tokensInfo={};
