@@ -399,8 +399,8 @@ app.get('/atlassian/call', function(request, response){
 				response.write(data);
 				response.end();
 			} else {
-			    res.write(data,'binary');
-			    res.end(null, 'binary');
+				response.write(data,'binary');
+				response.end(null, 'binary');
 			}
 		}
 	);
