@@ -398,7 +398,7 @@ exports.OAuth.prototype.getCallHeaders = function( oauth_token, oauth_token_secr
               '-H \'User-Agent: '+headers["User-Agent"]+'\' '+ 
               '-H \'Content-Type: '+headers["Content-Type"]+'\' ' +
               ' https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png';
-  return {headers:headers,curlCommand:sCurlCommand};
+  return {headers:headers,method:method, url:url,curlCommand:sCurlCommand};
 }
 
 exports.OAuth.prototype.getOAuthAccessToken= function(oauth_token, oauth_token_secret, oauth_verifier,  callback) {
