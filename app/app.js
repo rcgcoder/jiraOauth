@@ -282,11 +282,11 @@ app.get('/sessions/callback', function(request, response){
 					console.log("OK");
 	//    			request.session.oauthAccessToken = oauthAccessToken;
 	//      			request.session.oauthAccessTokenSecret = oauthAccessTokenSecret;
-					tokensInfo[token].access=oauthAccessToken;
-					tokensInfo[token].accessSecret=oauthAccessTokenSecret;		
+					tInfo.access=oauthAccessToken;
+					tInfo.accessSecret=oauthAccessTokenSecret;		
 					console.log("Final Access:"+oauthAccessToken);
 					console.log("Final Secret:"+oauthAccessTokenSecret);
-
+					tokensInfo[oauthAccessToken]=tInfo;
 					response.write('{"isToken":"true","access":"'+oauthAccessToken+'","secret":"'+oauthAccessTokenSecret+'"}');
 		/*			
 					var request = require('request');
