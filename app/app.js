@@ -396,5 +396,5 @@ app.get('/atlassian/call', function(request, response){
 			response.end();
 		}
 	);
-*/    });
+    });
 app.listen(parseInt(process.env.PORT || 8080));
