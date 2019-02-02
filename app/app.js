@@ -3,6 +3,7 @@ sys = require('sys'),
 util = require('util'),
 OAuth = require('./lib/oauth.js').OAuth,
 fs = require('fs'),
+crypto=require('crypto'),
 //express=require('express'),
 htmlToJson=require('html-to-json');
 stringify=require('json-stringify');
@@ -29,6 +30,10 @@ console.log("consumerPrivateKeyFile:["+config["consumerPrivateKeyFile"]+"]");
 var privateKeyData = fs.readFileSync(config["consumerPrivateKeyFile"], "utf8");
 console.log("Key:"+privateKeyData);
 console.log("ConsumerKey:"+config["consumerKey"]);
+
+//console.log("Start Sign Test");
+//var signTest=crypto.createSign("RSA-SHA1").update("Test String").sign("&H21LT5mQiTDpZKQRdJhxC4mudAfkdPJx", 'base64');
+//console.log("Signed Test:"+signTest);
 
 /*
 app.dynamicHelpers({
@@ -110,6 +115,7 @@ app.get('/sessions/connect', function(request, response){
 					  "1",
 					  callbackServer+"/oauth/sessions/callback",
 					  "RSA-SHA1",
+//					  "HMAC-SHA1",
 					  null,
 					  privateKeyData);
 	consumer.getOAuthRequestToken(
@@ -119,7 +125,7 @@ app.get('/sessions/connect', function(request, response){
     		if (error) {
 			console.log("Error");
 				console.log(error.data);
-      			response.send('Error getting OAuth access token');
+      			response.send('Error getting OAuth access token:'+error.data);
 			}
     		else {
 			console.log("OK");
@@ -254,7 +260,7 @@ app.get('/sessions/callback', function(request, response){
 	console.log("Token info:"+JSON.stringify(tInfo));
 	var secret=tInfo.secret;
 	var verifier=request.query.oauth_verifier;
-    var access="";
+	var access="";
 	var consumer=tInfo.consumer;
 	console.log(" 	oauth_token:" + token);
 	console.log("	request token:" + tokensInfo[token].token);
@@ -271,7 +277,7 @@ app.get('/sessions/callback', function(request, response){
 			    if (error) { 
 					console.log("Error");
 			    		console.log(error.data);
-			    		response.send("error getting access token");		
+			    		response.send("error getting access token:"+error);		
 			    } else {
 					console.log("OK");
 	//    			request.session.oauthAccessToken = oauthAccessToken;
@@ -340,49 +346,46 @@ app.get('/sessions/callback', function(request, response){
 					response.end();
 					
 					
-	/*      				consumer.get("https://rcgcoder.atlassian.net/rest/api/2/search", 
-							request.session.oauthAccessToken, 
-							request.session.oauthAccessTokenSecret, 
-							"application/json",
-							function(error, data, resp){
-								console.log(data);
-								data = JSON.parse(data);
-								response.write("I am looking at: "+data["key"]);
-							response.end();
-							}
-						);
-	*/
+	
 			    }
 			}
 		)
 	});
-
-    app.get('/atlassian/call', function(request, response){
-        console.log("Callbacking:" ); //+ JSON.stringify(request));
-        var token=request.query.oauth_token;
-        console.log("token:"+token);
-        console.log("Tokens:"+JSON.stringify(tokensInfo));
-        var tInfo=tokensInfo[token];
-        console.log("Token info:"+JSON.stringify(tInfo));
-        var consumer=tInfo.consumer;
-        console.log("   oauth_token:" + token);
-        console.log("   request token:" + tokensInfo[token].token);
-        console.log("   secret:" + tokensInfo[token].secret);
-        consumer.get(
-                "https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png",
-                //"https://paega2.atlassian.net/rest/api/2/search",
-                tInfo.access,//request.session.oauthAccessToken,
-                tInfo.secret,//request.session.oauthAccessTokenSecret,
-                undefined,
-//              "application/json",
-                function(error, data, resp){
-                        console.log(data);
-                        data = JSON.parse(data);
-                        response.write("I am looking at: "+data["key"]);
-                        response.end();
-                }
-        );
-    });
 					
+app.get('/atlassian/call', function(request, response){
+	console.log("Callbacking:" ); //+ JSON.stringify(request));
+	var token=request.query.oauth_token;
+	console.log("token:"+token);
+	console.log("Tokens:"+JSON.stringify(tokensInfo));
+	var tInfo=tokensInfo[token];
+	console.log("Token info:"+JSON.stringify(tInfo));
+	var consumer=tInfo.consumer;
+	console.log(" 	oauth_token:" + token);
+	console.log("	request token:" + tokensInfo[token].token);
+	console.log("	secret:" + tokensInfo[token].secret);
+    var url="https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png";
+//        var url="https://api.media.atlassian.com/file/6a3096f3-426d-4fdf-8565-be02722c97ba/binary?token=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYjJhMzNlMi0wODViLTRjMGUtOWI3ZS1jNzU4Yjg3NGU0ZDQiLCJhY2Nlc3MiOnsidXJuOmZpbGVzdG9yZTpmaWxlOjZhMzA5NmYzLTQyNmQtNGZkZi04NTY1LWJlMDI3MjJjOTdiYSI6WyJyZWFkIl19LCJleHAiOjE1NDkwNTI3MjQsIm5iZiI6MTU0OTA1MjA2NH0.-77KqtNoEemUmWOiziYfRkjKSQs1M7HmiO9-mzghJhU&client=cb2a33e2-085b-4c0e-9b7e-c758b874e4d4&name=screenshot-1.png";
 
+    var content_type="application/octet-stream";
+	var newHeaders=consumer.getCallHeaders( tInfo.access, tInfo.secret, "GET", url, null, "", content_type, function() {console.log("callback");} );
+	response.write(JSON.stringify(newHeaders));
+	response.end();
+
+/*	consumer.get(
+		"https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png",
+		//"https://paega2.atlassian.net/rest/api/2/search", 
+		tInfo.access,//request.session.oauthAccessToken, 
+		tInfo.secret,//request.session.oauthAccessTokenSecret, 
+//		undefined,
+		"application/octet-stream",
+		function(error, data, resp){
+			//console.log(data);
+			console.log("First byte:"+data.charCodeAt(0));
+			//data = JSON.parse(data);
+			//response.write("I am looking at: "+data["key"]);
+			response.write(data);
+			response.end();
+		}
+	);
+*/    });
 app.listen(parseInt(process.env.PORT || 8080));

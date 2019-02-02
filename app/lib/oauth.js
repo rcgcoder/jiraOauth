@@ -295,6 +295,14 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
   if( !parsedUrl.pathname  || parsedUrl.pathname == "" ) parsedUrl.pathname ="/";
   if( parsedUrl.query ) path= parsedUrl.pathname + "?"+ parsedUrl.query ;
   else path= parsedUrl.pathname;
+  console.log('curl -v '+
+	      '-H \'Authorization: '+headers.Authorization +'\' '+
+              '-H \'Host: '+headers.Host+ '\' ' +
+              '-H \'Accept: '+headers.Accept+'\' ' +  
+              '-H \'Connection: '+headers.Connection+'\' ' +
+              '-H \'User-Agent: '+headers["User-Agent"]+'\' '+ 
+              '-H \'Content-Type: '+headers["Content-Type"]+'\' ' +
+              ' https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png');
 
   var request;
   if( parsedUrl.protocol == "https:" ) {
@@ -310,6 +318,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
     request.on('response', function (response) {
       response.setEncoding('utf8');
       response.on('data', function (chunk) {
+	//console.log("Chunk First byte: "+chunk[0]);//+" --> " + chunk.charCodeAt(0));
         data+=chunk;
       });
       response.on('end', function () {
@@ -342,6 +351,54 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
   }
   
   return;
+}
+exports.OAuth.prototype.getCallHeaders = function( oauth_token, oauth_token_secret, method, url, extra_params, post_body, post_content_type,  callback ) {
+  var orderedParameters= this._prepareParameters(oauth_token, oauth_token_secret, method, url, extra_params);
+
+  if( !post_content_type ) {
+    post_content_type= "application/x-www-form-urlencoded";
+  }
+  var parsedUrl= URL.parse( url, false );
+  if( parsedUrl.protocol == "http:" && !parsedUrl.port ) parsedUrl.port= 80;
+  if( parsedUrl.protocol == "https:" && !parsedUrl.port ) parsedUrl.port= 443;
+
+  var headers= {};
+  headers["Authorization"]= this._buildAuthorizationHeaders(orderedParameters);
+  headers["Host"] = parsedUrl.host
+
+  for( var key in this._headers ) {
+    if (this._headers.hasOwnProperty(key)) {
+      headers[key]= this._headers[key];
+    }
+  }
+
+  // Filter out any passed extra_params that are really to do with OAuth
+  for(var key in extra_params) {
+    if( this._isParameterNameAnOAuthParameter( key ) ) {
+      delete extra_params[key];
+    }
+  }
+
+  if( (method == "POST" || method == "PUT")  && ( post_body == null && extra_params != null) ) {
+    post_body= querystring.stringify(extra_params);
+  }
+
+  headers["Content-length"]= post_body ? post_body.length : 0; //Probably going to fail if not posting ascii
+  headers["Content-Type"]= post_content_type;
+   
+  var path;
+  if( !parsedUrl.pathname  || parsedUrl.pathname == "" ) parsedUrl.pathname ="/";
+  if( parsedUrl.query ) path= parsedUrl.pathname + "?"+ parsedUrl.query ;
+  else path= parsedUrl.pathname;
+  var sCurlCommand='curl -v '+
+	      '-H \'Authorization: '+headers.Authorization +'\' '+
+              '-H \'Host: '+headers.Host+ '\' ' +
+              '-H \'Accept: '+headers.Accept+'\' ' +  
+              '-H \'Connection: '+headers.Connection+'\' ' +
+              '-H \'User-Agent: '+headers["User-Agent"]+'\' '+ 
+              '-H \'Content-Type: '+headers["Content-Type"]+'\' ' +
+              ' https://paega2.atlassian.net/secure/attachment/41486/screenshot-1.png';
+  return {headers:headers,curlCommand:sCurlCommand};
 }
 
 exports.OAuth.prototype.getOAuthAccessToken= function(oauth_token, oauth_token_secret, oauth_verifier,  callback) {
