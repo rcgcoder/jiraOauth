@@ -318,7 +318,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
     request.on('response', function (response) {
       response.setEncoding('utf8');
       response.on('data', function (chunk) {
-	//console.log("Chunk First byte: "+chunk[0]);//+" --> " + chunk.charCodeAt(0));
+	    console.log("Chunk First byte: "+ chunk[0] +" --> " + chunk.charCodeAt(0));
         data+=chunk;
       });
       response.on('end', function () {
