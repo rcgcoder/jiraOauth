@@ -322,12 +322,12 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 //      response.setEncoding('utf8');
       response.on('data', function (chunk) {
       	if (bIsFirstChunk){
-	    	bIsBin=istextorbinary.isBinary(null, data);
+	    	bIsBin=istextorbinary.isBinary(null, chunk);
 	    	if (bIsBin){
 	    		console.log("Chunk First byte: "+ chunk[0] +" --> " + chunk.charCodeAt(0));
 	    		data=[];
 	    	} else {
-	    		console.log("Chunk First Char: "+ chunk.charCodeAt(0));
+        		console.log("Chunk First Char: "+ chunk.charCodeAt(0));
 	    		data="";
 	    	}
       	}
