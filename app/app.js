@@ -398,6 +398,7 @@ app.get('/atlassian/call', function(request, response){
 			response.setHeader("Content-Type", content_type);
 			response.setHeader('isBinary',  bIsBin);
 			if (bIsBin){
+				console.log("Typeof data:"+(typeof data));
 				console.log("First byte:"+data[0]);
 				response.write(data,'binary');
 				response.end(null, 'binary');
