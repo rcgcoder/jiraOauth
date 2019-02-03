@@ -395,7 +395,8 @@ app.get('/atlassian/call', function(request, response){
 			//console.log("First byte:"+data.charCodeAt(0));
 			//data = JSON.parse(data);
 			//response.write("I am looking at: "+data["key"]);
-			response.writeHead(200, {'isBinary': bIsBin});
+			response.setHeader("Content-Type", content_type);
+			response.setHeader('isBinary': bIsBin);
 			if (!bIsBin){
 				response.write(data);
 				response.end();
