@@ -397,13 +397,13 @@ app.get('/atlassian/call', function(request, response){
 			//response.write("I am looking at: "+data["key"]);
 			response.setHeader("Content-Type", content_type);
 			response.setHeader('isBinary',  bIsBin);
-			if (!bIsBin){
+			if (bIsBin){
 				console.log("First byte:"+data[0]);
-				response.write(data);
-				response.end();
-			} else {
 				response.write(data,'binary');
 				response.end(null, 'binary');
+			} else {
+				response.write(data);
+				response.end();
 			}
 		}
 	);
