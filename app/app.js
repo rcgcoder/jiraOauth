@@ -390,7 +390,7 @@ app.get('/atlassian/call', function(request, response){
 		content_type,
 		function(error, data, resp){
 			var bIsBin=false;
-			if (!isString(data)){
+			if (!(typeof data==="string")){
 				bIsBin=istextorbinary.isBinary(null, data);
 			}
 			console.log("Is binary:"+bIsBin);
