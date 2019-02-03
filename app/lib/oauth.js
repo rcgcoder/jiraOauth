@@ -3,6 +3,7 @@ var crypto= require('crypto'),
     http= require('http'),
     https= require('https'),
     URL= require('url'),
+    istextorbinary=require('istextorbinary'),
     querystring= require('querystring'); 
 
 exports.OAuth= function(requestUrl, accessUrl, consumerKey, consumerSecret, version, authorize_callback, signatureMethod, nonceSize, privateKey, customHeaders) {
@@ -315,11 +316,25 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
   if( callback ) {
     var data=""; 
     var self= this;
+    var bIsBin=false;
+    var bIsFirstChunk=true;
     request.on('response', function (response) {
-      response.setEncoding('utf8');
+//      response.setEncoding('utf8');
       response.on('data', function (chunk) {
-	    console.log("Chunk First byte: "+ chunk[0] +" --> " + chunk.charCodeAt(0));
-        data+=chunk;
+      	if (bIsFirstChunk){
+	    	bIsBin=istextorbinary.isBinary(null, data);
+	    	if (bIsBin){
+	    		console.log("Chunk First byte: "+ chunk[0] +" --> " + chunk.charCodeAt(0));
+	    		data=[];
+	    	} else {
+	    		data="";
+	    	}
+      	}
+      	if (!bIsBin){
+            data+=chunk;
+      	} else {
+      		data.push(chunk);
+      	}
       });
       response.on('end', function () {
         if( response.statusCode != 200 ) {
@@ -331,6 +346,9 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
             callback({ statusCode: response.statusCode, data: data }, data, response);
           }
         } else {
+          if (bIsBin){
+        	  data=Buffer.concat(data);
+          }
           callback(null, data, response);
         }
       });
