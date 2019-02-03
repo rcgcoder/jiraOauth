@@ -318,32 +318,40 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
     var self= this;
     var bIsBin=false;
     var bIsFirstChunk=true;
+    var nChunk=0;
     request.on('response', function (response) {
       response.on('data', function (chunk) {
       	if (bIsFirstChunk){
 	    	bIsBin=istextorbinary.isBinary(null, chunk);
 	    	if (bIsBin){
-	    		console.log("Chunk First byte: "+ chunk[0]);
 	    		data=[];
 	    	} else {
 //  	            response.setEncoding('utf8');
 //        		console.log("Chunk First Char: "+ chunk.charCodeAt(0));
 	    		data="";
 	    	}
+	    	
       	}
       	if (!bIsBin){
             data+=chunk;
       	} else {
+    		console.log("Chunk "+ nChunk +" First byte: "+ chunk[0]);
+    		if (chunk.length>3){
+	    		console.log("Chunk "+ nChunk +" 2º byte: "+ chunk[1]);
+	    		console.log("Chunk "+ nChunk +" 3º byte: "+ chunk[2]);
+	    		console.log("Chunk "+ nChunk +" 4º byte: "+ chunk[3]);
+    		}
       		data.push(chunk);
       	}
+      	bIsFirstChunk=false;
+      	nChunk ++;
       });
       response.on('end', function () {
         if( response.statusCode != 200 ) {
           // Follow 302 redirects with Location HTTP header
           if(response.statusCode == 302 && response.headers && response.headers.location) {
             self._performSecureRequest( oauth_token, oauth_token_secret, method, response.headers.location, extra_params, post_body, post_content_type,  callback);
-          }
-          else {
+          } else {
             callback({ statusCode: response.statusCode, data: data }, data, response);
           }
         } else {
