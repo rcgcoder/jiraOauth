@@ -396,7 +396,7 @@ app.get('/atlassian/call', function(request, response){
 			//data = JSON.parse(data);
 			//response.write("I am looking at: "+data["key"]);
 			response.setHeader("Content-Type", content_type);
-			response.setHeader('isBinary', bIsBin);
+			response.setHeader('isBinary',  bIsBin);
 			if (!bIsBin){
 				response.write(data);
 				response.end();
