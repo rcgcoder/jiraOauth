@@ -334,6 +334,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
       	}
       	if (!bIsBin){
             response.setEncoding('utf8');
+            console.log(data);
             data+=chunk;
       	} else {
     		console.log("Chunk "+ nChunk +" First byte: "+ chunk[0]);
