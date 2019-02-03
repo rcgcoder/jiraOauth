@@ -327,6 +327,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 	    		console.log("Chunk First byte: "+ chunk[0] +" --> " + chunk.charCodeAt(0));
 	    		data=[];
 	    	} else {
+	    		console.log("Chunk First Char: "+ chunk.charCodeAt(0));
 	    		data="";
 	    	}
       	}

@@ -403,6 +403,7 @@ app.get('/atlassian/call', function(request, response){
 				response.write(data,'binary');
 				response.end(null, 'binary');
 			} else {
+				console.log("First Char Code:" +data.charCodeAt(0));
 				response.write(data);
 				response.end();
 			}
