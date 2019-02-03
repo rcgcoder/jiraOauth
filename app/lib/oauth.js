@@ -323,6 +323,7 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
       response.on('data', function (chunk) {
       	if (bIsFirstChunk){
 	    	bIsBin=istextorbinary.isBinary(null, chunk);
+	    	console.log("Chunk is binary:"+bIsBin);
 	    	if (bIsBin){
 	    		data=[];
 	    	} else {
