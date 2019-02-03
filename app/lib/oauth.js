@@ -327,13 +327,13 @@ exports.OAuth.prototype._performSecureRequest= function( oauth_token, oauth_toke
 	    	if (bIsBin){
 	    		data=[];
 	    	} else {
-//  	            response.setEncoding('utf8');
 //        		console.log("Chunk First Char: "+ chunk.charCodeAt(0));
 	    		data="";
 	    	}
 	    	
       	}
       	if (!bIsBin){
+            response.setEncoding('utf8');
             data+=chunk;
       	} else {
     		console.log("Chunk "+ nChunk +" First byte: "+ chunk[0]);
