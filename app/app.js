@@ -398,6 +398,8 @@ app.get('/atlassian/call', function(request, response){
 			if (!(typeof data==="string")){
 				bIsBin=istextorbinary.isBinary(null, data);
 			}
+			console.log("Content-type lowercase:"+response.getHeader("content-type"));
+			console.log("Content-type:"+response.getHeader("Content-Type"));
 			console.log("Is binary:"+bIsBin);
 			//console.log(data);
 			//console.log("First byte:"+data.charCodeAt(0));
