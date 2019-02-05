@@ -376,9 +376,9 @@ app.get('/atlassian/call', function(request, response){
     var content_type=request.query.CallContentType;    
 */  
 	console.log(JSON.stringify(request.headers));
-	var url=request.headers.tgtUrl;
-    var method=request.headers.tgtMethod;
-    var content_type=request.headers.tgtContentType;    
+	var url=request.headers.tgturl;
+    var method=request.headers.tgtmethod;
+    var content_type=request.headers.tgtcontenttype;    
     console.log("Call Url:"+url);
     console.log("Call Method:"+method);
     console.log("Call Content Type:"+content_type);
